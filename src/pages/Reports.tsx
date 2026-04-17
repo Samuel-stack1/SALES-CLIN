@@ -7,52 +7,27 @@ import { Calendar, TrendingUp, Users, MessageSquare, Download } from 'lucide-rea
 // Mock data para relatórios
 const mockReports = {
   appointments: {
-    total: 45,
-    completed: 38,
-    cancelled: 4,
-    noShow: 3,
-    monthlyGrowth: 12
+    total: 0,
+    completed: 0,
+    cancelled: 0,
+    noShow: 0,
+    monthlyGrowth: 0
   },
   conversations: {
-    total: 127,
-    converted: 45,
-    abandoned: 82,
-    conversionRate: 35.4
+    total: 0,
+    converted: 0,
+    abandoned: 0,
+    conversionRate: 0
   },
   clients: {
-    new: 15,
-    returning: 30,
-    total: 45,
-    retention: 67
+    new: 0,
+    returning: 0,
+    total: 0,
+    retention: 0
   }
 };
 
-const mockAppointmentHistory = [
-  {
-    id: '1',
-    date: '2024-01-15',
-    client: 'Maria Silva',
-    service: 'Consulta Psicológica',
-    status: 'completed',
-    value: 150
-  },
-  {
-    id: '2',
-    date: '2024-01-14',
-    client: 'João Santos',
-    service: 'Terapia de Casal',
-    status: 'completed',
-    value: 200
-  },
-  {
-    id: '3',
-    date: '2024-01-13',
-    client: 'Ana Costa',
-    service: 'Consulta Psicológica',
-    status: 'cancelled',
-    value: 0
-  }
-];
+const mockAppointmentHistory: any[] = [];
 
 const Reports = () => {
   const getStatusBadge = (status: string) => {
@@ -120,7 +95,7 @@ const Reports = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{mockReports.appointments.completed}</div>
                 <p className="text-xs text-muted-foreground">
-                  {((mockReports.appointments.completed / mockReports.appointments.total) * 100).toFixed(1)}% de taxa de comparecimento
+                  {mockReports.appointments.total > 0 ? ((mockReports.appointments.completed / mockReports.appointments.total) * 100).toFixed(1) : 0}% de taxa de comparecimento
                 </p>
               </CardContent>
             </Card>
@@ -135,7 +110,7 @@ const Reports = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{mockReports.appointments.cancelled}</div>
                 <p className="text-xs text-muted-foreground">
-                  {((mockReports.appointments.cancelled / mockReports.appointments.total) * 100).toFixed(1)}% de cancelamentos
+                  {mockReports.appointments.total > 0 ? ((mockReports.appointments.cancelled / mockReports.appointments.total) * 100).toFixed(1) : 0}% de cancelamentos
                 </p>
               </CardContent>
             </Card>
@@ -150,7 +125,7 @@ const Reports = () => {
               <CardContent>
                 <div className="text-2xl font-bold">{mockReports.appointments.noShow}</div>
                 <p className="text-xs text-muted-foreground">
-                  {((mockReports.appointments.noShow / mockReports.appointments.total) * 100).toFixed(1)}% de ausências
+                  {mockReports.appointments.total > 0 ? ((mockReports.appointments.noShow / mockReports.appointments.total) * 100).toFixed(1) : 0}% de ausências
                 </p>
               </CardContent>
             </Card>

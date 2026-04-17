@@ -51,6 +51,12 @@ const modules = [
     description: 'Contratos e documentos',
     icon: 'FileText',
   },
+  {
+    code: 'test',
+    name: 'Teste (Odonto)',
+    description: 'Módulo de testes odontológicos',
+    icon: 'TestTube',
+  },
 ]
 
 async function main() {

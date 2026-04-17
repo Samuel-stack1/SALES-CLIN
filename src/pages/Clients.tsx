@@ -414,7 +414,7 @@ const Clients = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-3 sm:p-4 pt-0">
-            <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">12</div>
+            <div className="text-lg sm:text-xl md:text-2xl font-bold text-blue-600">0</div>
             <p className="text-[0.6rem] sm:text-[0.65rem] md:text-xs text-muted-foreground mt-0.5">
               este mês
             </p>

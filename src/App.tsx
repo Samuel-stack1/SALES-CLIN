@@ -23,6 +23,9 @@ import Catalogs from "./pages/Catalogs";
 import CatalogDetail from "./pages/CatalogDetail";
 import AppLayout from "./components/AppLayout";
 import NotFound from "./pages/NotFound";
+import DentalTest from "./pages/DentalTest";
+import SalesFunnel from "./pages/SalesFunnel";
+import Goals from "./pages/Goals";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +61,9 @@ const App = () => (
                 />
                 <Route path="profile" element={<Profile />} />
                 <Route path="contracts" element={<ContractSignature />} />
+                <Route path="dental-test" element={<DentalTest />} />
+                <Route path="sales-funnel" element={<SalesFunnel />} />
+                <Route path="metas" element={<Goals />} />
               </Route>
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />

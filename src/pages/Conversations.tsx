@@ -8,52 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { MessageSquare, Phone, Calendar, Search, Filter, ExternalLink } from 'lucide-react';
 
 // Mock data para conversas do bot
-const mockConversations = [
-  {
-    id: '1',
-    clientPhone: '+55 11 99999-9999',
-    clientName: 'Maria Silva',
-    startDate: '2024-01-20T10:30:00',
-    lastMessage: '2024-01-20T10:45:00',
-    status: 'converted',
-    appointmentScheduled: true,
-    messageCount: 12,
-    summary: 'Cliente interessada em consulta psicológica. Agendamento realizado para 25/01.'
-  },
-  {
-    id: '2',
-    clientPhone: '+55 11 88888-8888',
-    clientName: 'João Santos',
-    startDate: '2024-01-19T14:20:00',
-    lastMessage: '2024-01-19T14:25:00',
-    status: 'abandoned',
-    appointmentScheduled: false,
-    messageCount: 3,
-    summary: 'Conversa iniciada mas cliente não respondeu após informações sobre valores.'
-  },
-  {
-    id: '3',
-    clientPhone: '+55 11 77777-7777',
-    clientName: 'Ana Costa',
-    startDate: '2024-01-18T16:15:00',
-    lastMessage: '2024-01-18T16:35:00',
-    status: 'in_progress',
-    appointmentScheduled: false,
-    messageCount: 8,
-    summary: 'Cliente fazendo perguntas sobre terapia de casal. Aguardando decisão final.'
-  },
-  {
-    id: '4',
-    clientPhone: '+55 11 66666-6666',
-    clientName: 'Carlos Lima',
-    startDate: '2024-01-17T09:10:00',
-    lastMessage: '2024-01-17T09:40:00',
-    status: 'converted',
-    appointmentScheduled: true,
-    messageCount: 15,
-    summary: 'Agendamento de terapia individual realizado. Cliente demonstrou interesse em sessões regulares.'
-  }
-];
+const mockConversations: any[] = [];
 
 const Conversations = () => {
   const [conversations, setConversations] = useState(mockConversations);

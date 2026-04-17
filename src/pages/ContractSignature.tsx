@@ -51,34 +51,7 @@ const ContractSignature = () => {
   const pdfViewerRef = useRef<HTMLDivElement>(null);
 
   // Mock data for contracts history
-  const [contracts] = useState<Contract[]>([
-    {
-      id: '1',
-      clientName: 'Maria Santos',
-      documentName: 'Contrato de Tratamento Ortodôntico.pdf',
-      status: 'signed',
-      createdAt: '2024-01-15',
-      signedAt: '2024-01-16',
-      documentUrl: '#'
-    },
-    {
-      id: '2',
-      clientName: 'João Silva',
-      documentName: 'Termo de Consentimento.pdf',
-      status: 'pending',
-      createdAt: '2024-01-20',
-      documentUrl: '#'
-    },
-    {
-      id: '3',
-      clientName: 'Ana Costa',
-      documentName: 'Contrato de Implante.pdf',
-      status: 'sent',
-      createdAt: '2024-01-18',
-      signedAt: '2024-01-19',
-      documentUrl: '#'
-    }
-  ]);
+  const [contracts] = useState<Contract[]>([]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

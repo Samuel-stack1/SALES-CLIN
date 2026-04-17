@@ -25,86 +25,7 @@ import {
 } from "lucide-react";
 
 // Mock de dados de clientes com pacotes (adaptado para clínica de depilação a laser)
-const mockClientPackages = [
-  {
-    id: "1",
-    clientName: "Ana Silva",
-    service: "Depilação a Laser - Axilas",
-    packageType: "Pacote 10 sessões",
-    status: "active",
-    progress: { completed: 3, total: 10 },
-    nextPayment: { date: "2025-10-20", amount: 180, method: "Pix" },
-    payments: [
-      { id: "p1", date: "2025-01-15", amount: 180, method: "Cartão", status: "paid" },
-      { id: "p2", date: "2025-02-15", amount: 180, method: "Pix", status: "paid" },
-      { id: "p3", date: "2025-03-15", amount: 180, method: "Pix", status: "paid" },
-      { id: "p4", date: "2025-04-15", amount: 180, method: "Pix", status: "pending" },
-    ],
-  },
-  {
-    id: "2",
-    clientName: "Mariana Costa",
-    service: "Depilação a Laser - Perna Completa",
-    packageType: "Plano Mensal",
-    status: "active",
-    progress: { completed: 5, total: 12 },
-    nextPayment: { date: "2025-10-25", amount: 350, method: "Cartão" },
-    payments: [
-      { id: "p5", date: "2025-05-10", amount: 350, method: "Cartão", status: "paid" },
-      { id: "p6", date: "2025-06-10", amount: 350, method: "Cartão", status: "paid" },
-      { id: "p7", date: "2025-07-10", amount: 350, method: "Cartão", status: "paid" },
-      { id: "p8", date: "2025-08-10", amount: 350, method: "Cartão", status: "paid" },
-      { id: "p9", date: "2025-09-10", amount: 350, method: "Cartão", status: "paid" },
-    ],
-  },
-  {
-    id: "3",
-    clientName: "Juliana Oliveira",
-    service: "Depilação a Laser - Facial Completo",
-    packageType: "Pacote 8 sessões",
-    status: "overdue",
-    progress: { completed: 2, total: 8 },
-    nextPayment: { date: "2025-10-05", amount: 220, method: "Pix" },
-    payments: [
-      { id: "p10", date: "2025-08-05", amount: 220, method: "Pix", status: "paid" },
-      { id: "p11", date: "2025-09-05", amount: 220, method: "Pix", status: "paid" },
-      { id: "p12", date: "2025-10-05", amount: 220, method: "Pix", status: "overdue" },
-    ],
-  },
-  {
-    id: "4",
-    clientName: "Fernanda Souza",
-    service: "Depilação a Laser - Virilha + Axilas",
-    packageType: "Pacote 10 sessões",
-    status: "active",
-    progress: { completed: 7, total: 10 },
-    nextPayment: { date: "2025-10-28", amount: 280, method: "Cartão" },
-    payments: [
-      { id: "p13", date: "2025-04-20", amount: 280, method: "Cartão", status: "paid" },
-      { id: "p14", date: "2025-05-20", amount: 280, method: "Cartão", status: "paid" },
-      { id: "p15", date: "2025-06-20", amount: 280, method: "Pix", status: "paid" },
-      { id: "p16", date: "2025-07-20", amount: 280, method: "Pix", status: "paid" },
-      { id: "p17", date: "2025-08-20", amount: 280, method: "Pix", status: "paid" },
-      { id: "p18", date: "2025-09-20", amount: 280, method: "Pix", status: "paid" },
-      { id: "p19", date: "2025-10-20", amount: 280, method: "Cartão", status: "paid" },
-    ],
-  },
-  {
-    id: "5",
-    clientName: "Carla Mendes",
-    service: "Depilação a Laser - Corpo Completo",
-    packageType: "Plano Mensal Premium",
-    status: "active",
-    progress: { completed: 4, total: 12 },
-    nextPayment: { date: "2025-10-30", amount: 650, method: "Cartão" },
-    payments: [
-      { id: "p20", date: "2025-06-30", amount: 650, method: "Cartão", status: "paid" },
-      { id: "p21", date: "2025-07-30", amount: 650, method: "Cartão", status: "paid" },
-      { id: "p22", date: "2025-08-30", amount: 650, method: "Cartão", status: "paid" },
-      { id: "p23", date: "2025-09-30", amount: 650, method: "Cartão", status: "paid" },
-    ],
-  },
-];
+const mockClientPackages: any[] = [];
 
 const Payments = () => {
   const [clients] = useState(mockClientPackages);
@@ -510,13 +431,7 @@ const Payments = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {[
-                  { service: "Depilação a Laser - Perna Completa", count: 12, revenue: 4200 },
-                  { service: "Depilação a Laser - Axilas", count: 18, revenue: 3240 },
-                  { service: "Depilação a Laser - Facial Completo", count: 8, revenue: 1760 },
-                  { service: "Depilação a Laser - Virilha + Axilas", count: 10, revenue: 2800 },
-                  { service: "Depilação a Laser - Corpo Completo", count: 5, revenue: 3250 },
-                ].map((item, index) => (
+                {([] as any[]).map((item, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex-1">
                       <p className="font-medium">{item.service}</p>
@@ -548,14 +463,7 @@ const Payments = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {[
-                  { month: "Outubro 2025", revenue: 8500 },
-                  { month: "Setembro 2025", revenue: 7200 },
-                  { month: "Agosto 2025", revenue: 6800 },
-                  { month: "Julho 2025", revenue: 7500 },
-                  { month: "Junho 2025", revenue: 6200 },
-                  { month: "Maio 2025", revenue: 5900 },
-                ].map((item, index) => (
+                {([] as any[]).map((item, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <span className="text-sm font-medium">{item.month}</span>
                     <div className="flex items-center gap-3">

@@ -1,50 +1,59 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ChevronLeft, ChevronRight, Clock, User, Plus, Filter, Search } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Clock, User, Plus, Filter, Search, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addWeeks, subWeeks, startOfMonth, endOfMonth, eachWeekOfInterval } from 'date-fns';
+import { format, addDays, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay, addWeeks, subWeeks, startOfMonth, endOfMonth, eachWeekOfInterval, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { appointmentsApi } from '@/lib/api';
+import { useToast } from '@/hooks/use-toast';
+import { NewAppointmentModal } from '@/components/NewAppointmentModal';
 
 const Appointments = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentWeek, setCurrentWeek] = useState(new Date());
   const [viewMode, setViewMode] = useState<'day' | 'week' | 'month'>('week');
   const [searchQuery, setSearchQuery] = useState('');
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const { toast } = useToast();
 
-  // Mock data for appointments
-  const appointments = [
-    {
-      id: 1,
-      clientName: 'João Silva',
-      service: 'Consulta Geral',
-      time: '09:00',
-      duration: 60,
-      status: 'confirmado',
-      date: new Date(),
-    },
-    {
-      id: 2,
-      clientName: 'Maria Santos',
-      service: 'Especialista',
-      time: '10:30',
-      duration: 90,
-      status: 'pendente',
-      date: new Date(),
-    },
-    {
-      id: 3,
-      clientName: 'Pedro Costa',
-      service: 'Retorno',
-      time: '14:00',
-      duration: 30,
-      status: 'confirmado',
-      date: addDays(new Date(), 1),
-    },
-  ];
+  const loadAppointments = async () => {
+    setIsLoading(true);
+    try {
+      const response = await appointmentsApi.getAll({ pageSize: 200 });
+      if (response.success && response.data) {
+        // Mapear dados da API para o formato esperado pelo UI
+        const mapped = response.data.map((apt: any) => ({
+          id: apt.id,
+          date: parseISO(apt.startTime),
+          time: format(parseISO(apt.startTime), "HH:mm"),
+          clientName: apt.client?.name || "Paciente s/ Nome",
+          service: apt.service?.name || "Serviço s/ Nome",
+          status: apt.status || "agendado",
+          duration: Math.round((new Date(apt.endTime).getTime() - new Date(apt.startTime).getTime()) / 60000)
+        }));
+        setAppointments(mapped);
+      }
+    } catch (error) {
+      console.error("Erro ao carregar agendamentos:", error);
+      toast({
+        title: "Erro",
+        description: "Não foi possível carregar os agendamentos.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadAppointments();
+  }, []);
 
   const weekDays = eachDayOfInterval({
     start: startOfWeek(currentWeek, { weekStartsOn: 0 }),
@@ -60,7 +69,7 @@ const Appointments = () => {
     switch (status) {
       case 'confirmado':
         return 'bg-green-100 text-green-800 border-green-200';
-      case 'pendente':
+      case 'agendado':
         return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'cancelado':
         return 'bg-red-100 text-red-800 border-red-200';
@@ -118,7 +127,7 @@ const Appointments = () => {
             <Filter className="h-4 w-4 sm:mr-2" />
             <span className="hidden sm:inline">Filtros</span>
           </Button>
-          <Button size="sm">
+          <Button size="sm" onClick={() => setOpenModal(true)}>
             <Plus className="h-4 w-4 sm:mr-2" />
             <span className="hidden sm:inline">Novo Agendamento</span>
           </Button>
@@ -169,15 +178,15 @@ const Appointments = () => {
             <CardContent className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Agendados</span>
-                <span className="font-medium">8</span>
+                <span className="font-medium">0</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Confirmados</span>
-                <span className="font-medium text-green-600">6</span>
+                <span className="font-medium text-green-600">0</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Pendentes</span>
-                <span className="font-medium text-yellow-600">2</span>
+                <span className="font-medium text-yellow-600">0</span>
               </div>
             </CardContent>
           </Card>
@@ -431,6 +440,13 @@ const Appointments = () => {
           </Card>
         </div>
       </div>
+      {/* Modais */}
+      <NewAppointmentModal
+        open={openModal}
+        onOpenChange={setOpenModal}
+        onSuccess={loadAppointments}
+        initialDate={selectedDate}
+      />
     </div>
   );
 };
